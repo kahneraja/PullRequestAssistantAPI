@@ -1,14 +1,12 @@
 class Github::TokensController < ApplicationController
 
-  def initialize(githubGatway = GithubGateway.new)
-    @githubGateway = githubGatway
+  def initialize(create_new_user_use_case = CreateNewUserUseCase.new)
+    @create_new_user_use_case = create_new_user_use_case
   end
 
   def create
-    token = @githubGateway.createToken(params[:client_id],params[:client_secret],params[:code])
-    currentUser = @githubGateway.getCurrentUser(token['access_token'])
-
-    render json: currentUser
+    user = @create_new_user_use_case.execute(params['client_id'], params['client_secret'], params['code'])
+    render json: user
   end
 
 end
