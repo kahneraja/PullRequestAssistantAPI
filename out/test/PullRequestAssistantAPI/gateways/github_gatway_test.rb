@@ -8,7 +8,7 @@ class GithubGatewayTest < ActiveSupport::TestCase
                                     '{"access_token":"ABC","token_type":"bearer","scope":"read"}')
     gateway = GithubGateway.new(httpClient)
     token = gateway.createToken('', '', '')
-    assert_equal token['access_token'], 'ABC'
+    assert token['access_token'] == 'ABC'
   end
 
   test 'getCurrentUser should return a user when successful' do
@@ -16,7 +16,7 @@ class GithubGatewayTest < ActiveSupport::TestCase
                                     '{"id": 123}')
     gateway = GithubGateway.new(httpClient)
     currentUser = gateway.getCurrentUser('')
-    assert_equal currentUser['id'], 123
+    assert currentUser['id'] == 123
   end
 
 end
