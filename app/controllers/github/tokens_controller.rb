@@ -1,14 +1,13 @@
 class Github::TokensController < ApplicationController
 
-  before_action :load_gateways
-
-  def create
-    result = @githubGateway.createToken(params[:client_id],params[:client_secret],params[:code])
-    render json: result
+  def initialize(githubGatway = GithubGateway.new)
+    @githubGateway = githubGatway
   end
 
-  def load_gateways(service = GithubGateway.new)
-    @githubGateway ||= service
+  def create
+    token = @githubGateway.createToken(params[:client_id],params[:client_secret],params[:code])
+    currentUser = @githubGateway.getCurrentUser(token['access_token'])
+    render json: { 'id' => currentUser['id'] }
   end
 
 end
