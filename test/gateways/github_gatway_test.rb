@@ -1,7 +1,7 @@
-require 'rails/test_help'
-require 'gateways/stub_http_client'
+require 'test_helper'
+require 'doubles/stub_http_client'
 
-class GithubGatewayTest < Test::Unit::TestCase
+class GithubGatewayTest < ActiveSupport::TestCase
 
   test 'createToken should return token when successful' do
     httpClient = StubHttpClient.new('200',
