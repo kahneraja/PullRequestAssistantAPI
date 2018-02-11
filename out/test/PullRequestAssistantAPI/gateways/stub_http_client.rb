@@ -8,6 +8,10 @@ class StubHttpClient
   def post(url, options)
     StubHttpPost.new(@responseCode,@responseBody)
   end
+
+  def get(url, options)
+    StubHttpPost.new(@responseCode,@responseBody)
+  end
 end
 
 class StubHttpPost
