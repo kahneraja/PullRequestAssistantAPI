@@ -7,7 +7,7 @@ class Github::TokensController < ApplicationController
   def create
     token = @githubGateway.createToken(params[:client_id],params[:client_secret],params[:code])
     currentUser = @githubGateway.getCurrentUser(token['access_token'])
-    render json: { 'id' => currentUser['id'] }
+    render json: currentUser
   end
 
 end
