@@ -20,7 +20,7 @@ class GithubGateway
   end
 
   def get_current_user(token)
-    response = HTTParty.get('https://api.github.com/user',
+    response = @httpClient.get('https://api.github.com/user',
                                headers: {
                                  'Accept' => 'application/json',
                                  'Content-Type' => 'application/json',

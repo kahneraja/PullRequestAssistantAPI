@@ -1,43 +1,46 @@
 require 'rails_helper'
 
-def createResponse(body)
-  response = PostResponse.new
-  response.body = body
-  request = PostRequest.new
-  request.response = response
-  request
-end
-
 describe GithubGateway do
 
-  HttpClient = HTTParty
-  PostRequest = Struct.new(:response)
-  PostResponse = Struct.new(:body)
+  describe 'when getting a new access token' do
 
-  it 'createToken should return token when successful' do
-    httpClient = HttpClient
-    request = createResponse('{"access_token":"ABC","token_type":"bearer","scope":"read"}')
+    let(:httpClient) {double(post: response)}
+    let(:gateway) {GithubGateway.new(httpClient)}
 
-    gateway = GithubGateway.new(httpClient)
+    subject(:token) {
+      gateway.create_token('', '', '')
+    }
 
-    expect(httpClient).to receive(:post).and_return(request)
+    describe 'when successful' do
 
-    token = gateway.create_token('', '', '')
+      let(:body) {double(body: '{"access_token" : "ABC"}')}
+      let(:response) {double(response: body)}
 
-    expect(token['access_token']).to eq('ABC')
+      it 'should return an access token' do
+        expect(token['access_token']).to eq('ABC')
+      end
+
+    end
   end
 
-  it 'get_current_user should return a user when successful' do
-    httpClient = HttpClient
-    request = createResponse('{"id": 123}')
+  describe 'when getting the user for a given token' do
 
-    gateway = GithubGateway.new(httpClient)
+    let(:httpClient) {double(get: response)}
+    let(:gateway) {GithubGateway.new(httpClient)}
 
-    expect(httpClient).to receive(:get).and_return(request)
+    subject(:github_user) {
+      gateway.get_current_user('')
+    }
 
-    currentUser = gateway.get_current_user('')
+    describe 'when successful' do
 
-    expect(currentUser['id']).to eq(123)
+      let(:body) {double(body: '{"id" : 1}')}
+      let(:response) {double(response: body)}
+
+      it 'should return a github user' do
+        expect(github_user['id']).to eq(1)
+      end
+
+    end
   end
-
 end
