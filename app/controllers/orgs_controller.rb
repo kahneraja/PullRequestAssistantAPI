@@ -5,9 +5,7 @@ class OrgsController < ApplicationController
 
   # GET /orgs
   def index
-    @orgs = Org.find_by_user_id(:user_id)
-
-    render json: @orgs
+    render json: @user.org
   end
 
   # GET /orgs/1
@@ -20,15 +18,6 @@ class OrgsController < ApplicationController
     @user.org = Org.new(org_params)
     @user.org.save
     render json: @user.org
-  end
-
-  # PATCH/PUT /orgs/1
-  def update
-    if @org.update(org_params)
-      render json: @org
-    else
-      render json: @org.errors, status: :unprocessable_entity
-    end
   end
 
   # DELETE /orgs/1
