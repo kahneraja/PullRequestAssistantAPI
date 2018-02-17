@@ -11,39 +11,45 @@ class GithubGateway
 
     }.to_json
     response = @httpClient.post('https://github.com/login/oauth/access_token',
-                                headers: {
-                                  'Accept' => 'application/json',
-                                  'Content-Type' => 'application/json'
-                                },
+                                headers: headers,
                                 body: body).response
     JSON.parse(response.body)
   end
 
   def get_current_user(token)
     response = @httpClient.get('https://api.github.com/user',
-                               headers: {
-                                 'Content-Type' => 'application/json',
-                                 'Authorization' => "token #{token}"
-                               }).response
+                               headers: auth_headers(token)).response
     JSON.parse(response.body)
   end
 
   def get_orgs(token)
     response = @httpClient.get('https://api.github.com/user/orgs',
-                               headers: {
-                                 'Content-Type' => 'application/json',
-                                 'Authorization' => "token #{token}"
-                               }).response
+                               headers: auth_headers(token)).response
     JSON.parse(response.body)
   end
 
   def get_members(org)
     url = "#{org.url}/members?per_page=100"
     response = @httpClient.get(url,
-                               headers: {
-                                 'Content-Type' => 'application/json',
-                                 'Authorization' => "token #{token}"
-                               }).response
+                               headers: auth_headers(token)).response
     JSON.parse(response.body)
+  end
+
+  private
+  
+  def headers
+    {
+      'Accept' => 'application/json',
+      'Content-Type' => 'application/json',
+      'User-Agent' => ''
+    }
+  end
+
+  def auth_headers(token)
+    {
+      'Content-Type' => 'application/json',
+      'Authorization' => "token #{token}",
+      'User-Agent' => ''
+    }
   end
 end
