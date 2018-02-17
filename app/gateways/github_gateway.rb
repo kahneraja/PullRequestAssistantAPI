@@ -29,4 +29,15 @@ class GithubGateway
                                }).response
     JSON.parse(response.body)
   end
+
+  def get_orgs(token)
+    response = @httpClient.get('https://api.github.com/user/orgs',
+                               headers: {
+                                 'Accept' => 'application/json',
+                                 'Content-Type' => 'application/json',
+                                 'User-Agent' => '',
+                                 'Authorization' => "token #{token}"
+                               }).response
+    JSON.parse(response.body)
+  end
 end
