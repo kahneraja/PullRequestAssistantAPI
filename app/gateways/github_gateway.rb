@@ -22,9 +22,7 @@ class GithubGateway
   def get_current_user(token)
     response = @httpClient.get('https://api.github.com/user',
                                headers: {
-                                 'Accept' => 'application/json',
                                  'Content-Type' => 'application/json',
-                                 'User-Agent' => '',
                                  'Authorization' => "token #{token}"
                                }).response
     JSON.parse(response.body)
@@ -33,9 +31,17 @@ class GithubGateway
   def get_orgs(token)
     response = @httpClient.get('https://api.github.com/user/orgs',
                                headers: {
-                                 'Accept' => 'application/json',
                                  'Content-Type' => 'application/json',
-                                 'User-Agent' => '',
+                                 'Authorization' => "token #{token}"
+                               }).response
+    JSON.parse(response.body)
+  end
+
+  def get_members(org)
+    url = "#{org.url}/members?per_page=100"
+    response = @httpClient.get(url,
+                               headers: {
+                                 'Content-Type' => 'application/json',
                                  'Authorization' => "token #{token}"
                                }).response
     JSON.parse(response.body)
