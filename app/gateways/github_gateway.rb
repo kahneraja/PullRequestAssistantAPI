@@ -28,7 +28,7 @@ class GithubGateway
     JSON.parse(response.body)
   end
 
-  def get_members(org)
+  def get_members(org, token)
     url = "#{org.url}/members?per_page=100"
     response = @httpClient.get(url,
                                headers: auth_headers(token)).response
@@ -36,7 +36,7 @@ class GithubGateway
   end
 
   private
-  
+
   def headers
     {
       'Accept' => 'application/json',

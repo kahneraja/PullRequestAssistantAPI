@@ -7,8 +7,8 @@ class SlackController < ApplicationController
 
   def members
     user_id = params[:user_id]
-    slack_token = User.find(user_id)
-    members = Slack::GetMembersUseCase.new().execute(slack_token)
+    user = User.find(user_id)
+    members = Slack::GetMembersUseCase.new.execute(user.slack_token)
     render json: members
   end
 
