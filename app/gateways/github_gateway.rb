@@ -3,10 +3,10 @@ class GithubGateway
     @httpClient = httpClient
   end
 
-  def create_token(clientId, clientSecret, code)
+  def create_token(code)
     body = {
-      'client_id' => clientId,
-      'client_secret' => clientSecret,
+      'client_id' => ENV['GITHUB_CLIENT_ID'],
+      'client_secret' => ENV['GITHUB_CLIENT_SECRET'],
       'code' => code
 
     }.to_json

@@ -3,9 +3,13 @@ class SlackGateway
     @httpClient = httpClient
   end
 
-  def create_token(client_id, client_secret, code, redirect_uri)
+  def create_token(code, redirect_uri)
     api = 'https://slack.com/api/oauth.access'
+
+    client_id = ENV['SLACK_CLIENT_ID']
+    client_secret = ENV['SLACK_CLIENT_SECRET']
     scope = 'chat:write:bot,users:read'
+
     url = "#{api}?client_id=#{client_id}&client_secret=#{client_secret}&code=#{code}&redirect_uri=#{redirect_uri}&scope=#{scope}"
     response = @httpClient.post(url,
                                 headers: {

@@ -8,7 +8,7 @@ describe SlackGateway do
     let(:gateway) {SlackGateway.new(httpClient)}
 
     subject(:token) {
-      gateway.create_token('', '', '')
+      gateway.create_token('', '')
     }
 
     describe 'when successful' do

@@ -1,7 +1,7 @@
 class GithubController < ApplicationController
 
   def tokens
-    user = Github::CreateNewUserUseCase.new.execute(params['client_id'], params['client_secret'], params['code'])
+    user = Github::CreateNewUserUseCase.new.execute(params['code'])
     render json: user
   end
 
