@@ -13,6 +13,7 @@ class GithubController < ApplicationController
   end
 
   def members
+    expires_in 1.hour, public: true
     members = Github::GetMembersUseCase.new.execute(params[:user_id])
     render json: members
   end

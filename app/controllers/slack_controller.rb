@@ -6,6 +6,7 @@ class SlackController < ApplicationController
   end
 
   def members
+    expires_in 1.hour, public: true
     user_id = params[:user_id]
     user = User.find(user_id)
     members = Slack::GetMembersUseCase.new.execute(user.slack_token)

@@ -35,6 +35,13 @@ class GithubGateway
     JSON.parse(response.body)
   end
 
+  def get_member(login, token)
+    url = "https://api.github.com/users/#{login}"
+    response = @httpClient.get(url,
+                               headers: auth_headers(token)).response
+    JSON.parse(response.body)
+  end
+
   private
 
   def headers
