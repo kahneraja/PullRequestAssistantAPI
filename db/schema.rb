@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180217045820) do
+ActiveRecord::Schema.define(version: 20180219163511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contributors", force: :cascade do |t|
+    t.string "github_name"
+    t.string "slack_name"
+    t.bigint "org_id"
+    t.index ["org_id"], name: "index_contributors_on_org_id"
+  end
 
   create_table "orgs", force: :cascade do |t|
     t.string "login"
@@ -32,5 +39,6 @@ ActiveRecord::Schema.define(version: 20180217045820) do
     t.integer "github_id"
   end
 
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "orgs", "users"
 end
