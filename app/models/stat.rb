@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class Stat < ApplicationRecord
 
   has_one :org, dependent: :destroy
 

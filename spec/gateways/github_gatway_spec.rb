@@ -43,4 +43,45 @@ describe GithubGateway do
 
     end
   end
+
+  describe 'when getting repos for a given org' do
+
+    let(:httpClient) {double(get: response)}
+    let(:gateway) {GithubGateway.new(httpClient)}
+
+    subject(:repos) {
+      gateway.get_repos(Org.new(url: ''), '')
+    }
+
+    describe 'when successful' do
+
+      let(:body) {double(body: '[{"url" : ''}]')}
+      let(:response) {double(response: body)}
+
+      it 'should return a repo' do
+        expect(repos.count).to eq(1)
+      end
+    end
+  end
+
+  describe 'when getting pull requests for a given repo' do
+
+    let(:httpClient) {double(get: response)}
+    let(:gateway) {GithubGateway.new(httpClient)}
+
+    subject(:repos) {
+      gateway.get_pull_requests('', '', '')
+    }
+
+    describe 'when successful' do
+
+      let(:body) {double(body: '[{"url" : '']')}
+      let(:response) {double(response: body)}
+
+      it 'should return a repo' do
+        expect(pull_requests.count).to eq(1)
+      end
+    end
+  end
+
 end

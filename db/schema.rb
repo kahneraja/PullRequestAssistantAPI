@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219163511) do
+ActiveRecord::Schema.define(version: 20180219182642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20180219163511) do
     t.index ["user_id"], name: "index_orgs_on_user_id"
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.datetime "created"
+    t.datetime "closed"
+    t.integer "hours"
+    t.integer "change_count"
+    t.integer "comments"
+    t.bigint "org_id"
+    t.index ["org_id"], name: "index_stats_on_org_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "github_token"
     t.string "slack_token"
@@ -41,4 +53,5 @@ ActiveRecord::Schema.define(version: 20180219163511) do
 
   add_foreign_key "contributors", "orgs"
   add_foreign_key "orgs", "users"
+  add_foreign_key "stats", "orgs"
 end

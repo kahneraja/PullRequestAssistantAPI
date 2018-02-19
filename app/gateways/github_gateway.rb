@@ -37,6 +37,33 @@ class GithubGateway
     JSON.parse(response.body)
   end
 
+  def get_repos(org, token)
+    url = "#{org.url}/repos?per_page=100"
+    response = @httpClient.get(url,
+                               headers: auth_headers(token)).response
+    JSON.parse(response.body)
+  end
+
+  def get_pull_requests(repo_url, state, token)
+    url = "#{repo_url}/pull?per_page=100&state=#{state}"
+    response = @httpClient.get(url,
+                               headers: auth_headers(token)).response
+    JSON.parse(response.body)
+  end
+
+  def get_files(pull_request_url, token)
+    url = "#{pull_request_url}/files"
+    response = @httpClient.get(url,
+                               headers: auth_headers(token)).response
+    JSON.parse(response.body)
+  end
+
+  def get_comments(comments_url, token)
+    response = @httpClient.get(comments_url,
+                               headers: auth_headers(token)).response
+    JSON.parse(response.body)
+  end
+
   def get_member(login, token)
     url = "https://api.github.com/users/#{login}"
     response = @httpClient.get(url,
