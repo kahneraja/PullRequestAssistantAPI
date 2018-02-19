@@ -1,4 +1,7 @@
 class SlackGateway
+
+  debug_output $stdout
+
   def initialize(httpClient = HTTParty)
     @httpClient = httpClient
   end

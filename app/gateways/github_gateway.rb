@@ -1,4 +1,7 @@
 class GithubGateway
+
+  debug_output $stdout
+
   def initialize(httpClient = HTTParty)
     @httpClient = httpClient
   end
