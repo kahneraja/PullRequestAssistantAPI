@@ -1,9 +1,7 @@
 class SlackGateway
-  
-  include HTTParty
-  debug_output $stdout
 
   def initialize(httpClient = HTTParty)
+    @logger = Logger.new(STDOUT)
     @httpClient = httpClient
   end
 
@@ -20,6 +18,7 @@ class SlackGateway
                                   'Accept' => 'application/json',
                                   'Content-Type' => 'application/json'
                                 }).response
+    @logger.debug { response.body }
     JSON.parse(response.body)
   end
 
