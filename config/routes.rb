@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   post 'github/tokens', to: 'github#tokens'
 
-  resources :contributors
   resources :users, only: [] do
 
     resources :orgs
+
+    resources :contributors
 
     post 'slack/tokens', to: 'slack#tokens'
     get 'slack/members', to: 'slack#members'

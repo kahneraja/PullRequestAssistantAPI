@@ -1,7 +1,7 @@
 class ContributorsController < ApplicationController
 
   def create
-    user_id = request.headers['User-Id']
+    user_id = params[:user_id]
     org = Org.find_by_user_id(user_id)
 
     Contributor.where(org_id: org.id).destroy_all
