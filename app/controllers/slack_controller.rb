@@ -1,7 +1,7 @@
 class SlackController < ApplicationController
 
   def tokens
-    user = Slack::ApplyTokenUseCase.new.execute(params[:user_id], params['code'], params['redirect_url'])
+    user = Slack::ApplyTokenUseCase.new.execute(params[:user_id], params['code'], params['redirect_uri'])
     render json: user
   end
 

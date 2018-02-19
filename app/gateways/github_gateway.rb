@@ -1,7 +1,6 @@
 class GithubGateway
 
   def initialize(httpClient = HTTParty)
-    @logger = Logger.new(STDOUT)
     @httpClient = httpClient
   end
 
@@ -16,7 +15,6 @@ class GithubGateway
     response = @httpClient.post('https://github.com/login/oauth/access_token',
                                 headers: headers,
                                 body: body).response
-    @logger.debug { response.body }
     JSON.parse(response.body)
   end
 

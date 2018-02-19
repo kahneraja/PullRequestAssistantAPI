@@ -1,7 +1,6 @@
 class SlackGateway
 
   def initialize(httpClient = HTTParty)
-    @logger = Logger.new(STDOUT)
     @httpClient = httpClient
   end
 
@@ -14,15 +13,12 @@ class SlackGateway
 
     url = "#{api}?client_id=#{client_id}&client_secret=#{client_secret}&code=#{code}&redirect_uri=#{redirect_uri}&scope=#{scope}"
 
-    @logger.debug { redirect_uri }
-    @logger.debug { url }
-
     response = @httpClient.post(url,
                                 headers: {
                                   'Accept' => 'application/json',
                                   'Content-Type' => 'application/json'
                                 }).response
-    @logger.debug { response.body }
+
     JSON.parse(response.body)
   end
 
