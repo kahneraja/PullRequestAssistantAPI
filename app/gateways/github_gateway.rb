@@ -12,6 +12,7 @@ class GithubGateway
       'code' => code
 
     }.to_json
+
     response = @httpClient.post('https://github.com/login/oauth/access_token',
                                 headers: headers,
                                 body: body).response

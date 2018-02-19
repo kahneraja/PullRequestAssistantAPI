@@ -13,6 +13,10 @@ class SlackGateway
     scope = 'chat:write:bot,users:read'
 
     url = "#{api}?client_id=#{client_id}&client_secret=#{client_secret}&code=#{code}&redirect_uri=#{redirect_uri}&scope=#{scope}"
+
+    @logger.debug { redirect_uri }
+    @logger.debug { url }
+
     response = @httpClient.post(url,
                                 headers: {
                                   'Accept' => 'application/json',
