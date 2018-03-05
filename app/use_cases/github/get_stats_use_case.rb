@@ -21,7 +21,8 @@ module Github
               closed: start_of_week(pull_request['closed_at']),
               hours: hours_open(pull_request),
               change_count: change_count,
-              comments: comments.count
+              comments: comments.count,
+              org_id: user.org.id
             )
           end
         end

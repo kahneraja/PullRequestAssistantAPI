@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20180219182642) do
   create_table "orgs", force: :cascade do |t|
     t.string "login"
     t.string "description"
-    t.integer "github_id"
     t.string "url"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_orgs_on_user_id"

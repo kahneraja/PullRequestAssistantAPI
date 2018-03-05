@@ -15,6 +15,7 @@ class GithubGateway
     response = @httpClient.post('https://github.com/login/oauth/access_token',
                                 headers: headers,
                                 body: body).response
+
     JSON.parse(response.body)
   end
 
@@ -45,7 +46,7 @@ class GithubGateway
   end
 
   def get_pull_requests(repo_url, state, token)
-    url = "#{repo_url}/pull?per_page=100&state=#{state}"
+    url = "#{repo_url}/pulls?per_page=100&state=#{state}"
     response = @httpClient.get(url,
                                headers: auth_headers(token)).response
     JSON.parse(response.body)
