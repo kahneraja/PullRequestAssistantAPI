@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   post 'github/tokens', to: 'github#tokens'
 
+  resources :stats, only: [:index]
+
   resources :users, only: [] do
 
     resources :orgs
