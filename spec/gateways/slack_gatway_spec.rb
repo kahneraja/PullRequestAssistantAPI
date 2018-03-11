@@ -21,6 +21,28 @@ describe SlackGateway do
       end
 
     end
+
+  end
+
+  describe 'when broading message' do
+
+    let(:httpClient) {double(post: response)}
+    let(:gateway) {SlackGateway.new(httpClient)}
+
+    subject(:result) {
+      gateway.post_message('', '', '')
+    }
+
+    describe 'when successful' do
+
+      let(:response) {double(success: true)}
+
+      it 'should return successful' do
+        expect(result.success).to eq(true)
+      end
+
+    end
+
   end
 
 end

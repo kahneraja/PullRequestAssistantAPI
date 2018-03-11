@@ -21,7 +21,7 @@ describe Github::GetStatsUseCase do
         )
     }
     let(:users) {
-      [User.new(github_token: '', org: Org.new(url: 'http://...'))]
+      [double(github_token: '', org: double(id: 1, url: 'http://...'))]
     }
 
     describe 'when complete' do
@@ -35,7 +35,8 @@ describe Github::GetStatsUseCase do
           closed: '2017-12-31'.to_date,
           hours: 1,
           change_count: 1,
-          comments: 1
+          comments: 1,
+          org_id: 1
         ).once
         Github::GetStatsUseCase.new(gateway).execute
       end

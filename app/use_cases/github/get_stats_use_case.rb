@@ -5,12 +5,12 @@ module Github
     end
 
     def execute
-      User.all.map do |user|
+      User.all.each do |user|
         Stat.where(org_id: user.org.id).destroy_all
         repos = @gateway.get_repos(user.org, user.github_token)
-        repos.map do |repo|
+        repos.each do |repo|
           pull_requests = @gateway.get_pull_requests(repo['url'], 'closed', user.github_token)
-          pull_requests.map do |pull_request|
+          pull_requests.each do |pull_request|
             files = @gateway.get_files(pull_request['url'], user.github_token)
             comments = @gateway.get_comments(pull_request['_links']['comments']['href'], user.github_token)
             change_count = files.reduce(0) { |sum, obj| sum + obj['changes'].to_i }

@@ -1,5 +1,7 @@
 class SlackController < ApplicationController
 
+  before_action :set_user
+
   def tokens
     user = Slack::ApplyTokenUseCase.new.execute(params[:user_id], params['code'], params['redirect_uri'])
     render json: user
@@ -7,10 +9,20 @@ class SlackController < ApplicationController
 
   def members
     expires_in 1.hour, public: true
-    user_id = params[:user_id]
-    user = User.find(user_id)
-    members = Slack::GetMembersUseCase.new.execute(user.slack_token)
+    members = Slack::GetMembersUseCase.new.execute(@user.slack_token)
     render json: members
+  end
+
+  def broadcast_message
+    message = params[:message]
+    channel = params[:channel]
+    Slack::BroadcastMessageUseCase.new.execute(message, channel, @user)
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
 end

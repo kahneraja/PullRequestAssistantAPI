@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     get 'github/orgs', to: 'github#orgs'
     get 'github/members', to: 'github#members'
 
-
   end
 
   mount Sidekiq::Web => '/sidekiq'

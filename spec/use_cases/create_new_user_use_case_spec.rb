@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CreateNewUserUseCase do
+describe Github::CreateNewUserUseCase do
 
   it 'should create a new user' do
     github_repository = GithubGateway.new
@@ -10,7 +10,7 @@ describe CreateNewUserUseCase do
     expect(User).to receive(:find_by_github_id).and_return(nil)
     expect(User).to receive(:create).once
 
-    use_case = CreateNewUserUseCase.new(github_repository)
+    use_case = Github::CreateNewUserUseCase.new(github_repository)
     use_case.execute('', '', '')
   end
 
@@ -24,7 +24,7 @@ describe CreateNewUserUseCase do
     expect(User).to receive(:find_by_github_id).and_return(existing_user)
     expect(User).to receive(:create).never
 
-    use_case = CreateNewUserUseCase.new(github_repository)
+    use_case = Github::CreateNewUserUseCase.new(github_repository)
     use_case.execute('', '', '')
   end
 
