@@ -6,10 +6,11 @@ module Slack
       @gateway = gateway
     end
 
-    def execute(message, channel, user)
+    def execute(channel, message, user)
       if !user.simulation_mode
-        @gateway.post_message(message, channel, user.slack_token)
+        @gateway.post_message(channel, message, user.slack_token)
       end
+      AuditMessage.create(channel: channel, message: message, org_id: user.org.id)
     end
 
   end

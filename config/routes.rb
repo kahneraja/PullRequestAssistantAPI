@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   post 'github/tokens', to: 'github#tokens'
 
+  post 'slack/broadcast_message', to: 'slack#broadcast_message'
+
   resources :stats, only: [:index]
+  resources :audit_messages, only: [:index]
 
   resources :users, only: [] do
 

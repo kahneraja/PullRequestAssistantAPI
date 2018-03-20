@@ -1,5 +1,5 @@
 class Stat < ApplicationRecord
 
-  has_one :org, dependent: :destroy
+  has_one :org
 
 end

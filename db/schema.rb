@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311223514) do
+ActiveRecord::Schema.define(version: 20180320190745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audit_messages", force: :cascade do |t|
+    t.string "channel"
+    t.string "message"
+    t.bigint "org_id"
+    t.index ["org_id"], name: "index_audit_messages_on_org_id"
+  end
 
   create_table "contributors", force: :cascade do |t|
     t.string "github_name"
@@ -52,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180311223514) do
     t.boolean "simulation_mode"
   end
 
+  add_foreign_key "audit_messages", "orgs"
   add_foreign_key "contributors", "orgs"
   add_foreign_key "orgs", "users"
   add_foreign_key "stats", "orgs"

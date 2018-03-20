@@ -16,7 +16,7 @@ class SlackController < ApplicationController
   def broadcast_message
     message = params[:message]
     channel = params[:channel]
-    Slack::BroadcastMessageUseCase.new.execute(message, channel, @user)
+    Slack::BroadcastMessageUseCase.new.execute(channel, message, @user)
   end
 
   private
